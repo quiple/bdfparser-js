@@ -695,7 +695,7 @@ export class Font {
       direction?: DirectionType | null
       usecurrentglyphspacing?: boolean | null
       missing?: Glyph | GlyphMeta | null
-      bb?: [number, number, number, number]
+      bb?: [number, number, number, number] | null
     } = {}
   ): Bitmap {
     const _linelimit = options.linelimit ?? 512

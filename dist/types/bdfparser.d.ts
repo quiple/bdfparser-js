@@ -214,7 +214,7 @@ export declare class Font {
         direction?: DirectionType | null;
         usecurrentglyphspacing?: boolean | null;
         missing?: Glyph | GlyphMeta | null;
-        bb?: [number, number, number, number];
+        bb?: [number, number, number, number] | null;
     }): Bitmap;
     /**
      * Draw (render) the glyphs of the specified words / setences / paragraphs (as a `string`), to a `Bitmap` object.
