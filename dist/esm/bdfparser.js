@@ -680,7 +680,7 @@ export class Font {
                     }
                 }
                 if (_mode === -1) {
-                    bitmap = glyph.draw(null, _bb);
+                    bitmap = glyph.draw(-1, _bb);
                 }
                 else {
                     bitmap = glyph.draw();
