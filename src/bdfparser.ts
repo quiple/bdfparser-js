@@ -884,6 +884,7 @@ export class Font {
    * @param options.direction - Writing direction
    * @param options.usecurrentglyphspacing - Use current glyph spacing
    * @param options.missing - Missing glyph replacement
+   * @param options.bb - Bounding box
    *
    * @returns `Bitmap` object
    *
@@ -893,10 +894,11 @@ export class Font {
     str: string,
     options: {
       linelimit?: number | null
-      mode?: 0 | 1 | null
+      mode?: -1 | 0 | 1 | null
       direction?: DirectionType | null
       usecurrentglyphspacing?: boolean | null
       missing?: Glyph | GlyphMeta | null
+      bb?: [number, number, number, number] | null
     } = {}
   ): Bitmap {
     const {
@@ -905,6 +907,7 @@ export class Font {
       direction,
       usecurrentglyphspacing,
       missing,
+      bb,
     } = options
     return this.drawcps(
       str.split('').map((c) => {
@@ -921,6 +924,7 @@ export class Font {
         direction,
         usecurrentglyphspacing,
         missing,
+        bb,
       }
     )
   }

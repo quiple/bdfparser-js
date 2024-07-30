@@ -226,6 +226,7 @@ export declare class Font {
      * @param options.direction - Writing direction
      * @param options.usecurrentglyphspacing - Use current glyph spacing
      * @param options.missing - Missing glyph replacement
+     * @param options.bb - Bounding box
      *
      * @returns `Bitmap` object
      *
@@ -233,10 +234,11 @@ export declare class Font {
      */
     draw(str: string, options?: {
         linelimit?: number | null;
-        mode?: 0 | 1 | null;
+        mode?: -1 | 0 | 1 | null;
         direction?: DirectionType | null;
         usecurrentglyphspacing?: boolean | null;
         missing?: Glyph | GlyphMeta | null;
+        bb?: [number, number, number, number] | null;
     }): Bitmap;
     /**
      * Draw all the glyphs in the font (default) or in the specified codepoint range in the font, sorted by the specified order (or by the ascending codepoint order by default), to a `Bitmap` object.

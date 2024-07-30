@@ -749,13 +749,14 @@ class Font {
      * @param options.direction - Writing direction
      * @param options.usecurrentglyphspacing - Use current glyph spacing
      * @param options.missing - Missing glyph replacement
+     * @param options.bb - Bounding box
      *
      * @returns `Bitmap` object
      *
      * @see online docs: {@link https://font.tomchen.org/bdfparser_js/font#draw}
      */
     draw(str, options = {}) {
-        const { linelimit, mode, direction, usecurrentglyphspacing, missing, } = options;
+        const { linelimit, mode, direction, usecurrentglyphspacing, missing, bb, } = options;
         return this.drawcps(str.split('').map((c) => {
             const cp = c.codePointAt(0);
             if (cp === undefined) {
@@ -770,6 +771,7 @@ class Font {
             direction,
             usecurrentglyphspacing,
             missing,
+            bb,
         });
     }
     /**
