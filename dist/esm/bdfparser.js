@@ -570,6 +570,7 @@ export class Font {
      * @param options.direction - Writing direction
      * @param options.usecurrentglyphspacing - Use current glyph spacing
      * @param options.missing - Missing glyph replacement
+     * @param options.bb - Bounding box
      *
      * @returns `Bitmap` object
      *
