@@ -691,10 +691,11 @@ export class Font {
     cps: number[],
     options: {
       linelimit?: number | null
-      mode?: 0 | 1 | null
+      mode?: -1 | 0 | 1 | null
       direction?: DirectionType | null
       usecurrentglyphspacing?: boolean | null
       missing?: Glyph | GlyphMeta | null
+      bb?: [number, number, number, number]
     } = {}
   ): Bitmap {
     const _linelimit = options.linelimit ?? 512
@@ -702,6 +703,7 @@ export class Font {
     const _direction = options.direction ?? 'lrtb'
     const _usecurrentglyphspacing = options.usecurrentglyphspacing ?? false
     const _missing = options.missing ?? null
+    const _bb = options.bb ?? null
     if (this.headers === undefined) {
       throw new Error('Font is not loaded')
     }
@@ -804,7 +806,11 @@ export class Font {
             glyph = new Glyph(EMPTY_GLYPH, this)
           }
         }
-        bitmap = glyph.draw()
+        if (_mode === -1) {
+          bitmap = glyph.draw()
+        } else {
+          bitmap = glyph.draw(null, _bb)
+        }
         w = bitmap.width()
         offset = 0
         if (
