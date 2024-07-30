@@ -682,6 +682,7 @@ export class Font {
    * @param options.direction - Writing direction
    * @param options.usecurrentglyphspacing - Use current glyph spacing
    * @param options.missing - Missing glyph replacement
+   * @param options.bb - Bounding box
    *
    * @returns `Bitmap` object
    *
@@ -691,10 +692,11 @@ export class Font {
     cps: number[],
     options: {
       linelimit?: number | null
-      mode?: 0 | 1 | null
+      mode?: -1 | 0 | 1 | null
       direction?: DirectionType | null
       usecurrentglyphspacing?: boolean | null
       missing?: Glyph | GlyphMeta | null
+      bb?: [number, number, number, number] | null
     } = {}
   ): Bitmap {
     const _linelimit = options.linelimit ?? 512
@@ -702,6 +704,7 @@ export class Font {
     const _direction = options.direction ?? 'lrtb'
     const _usecurrentglyphspacing = options.usecurrentglyphspacing ?? false
     const _missing = options.missing ?? null
+    const _bb = options.bb ?? null
     if (this.headers === undefined) {
       throw new Error('Font is not loaded')
     }
@@ -804,7 +807,11 @@ export class Font {
             glyph = new Glyph(EMPTY_GLYPH, this)
           }
         }
-        bitmap = glyph.draw()
+        if (_mode === -1) {
+          bitmap = glyph.draw(-1, _bb)
+        } else {
+          bitmap = glyph.draw()
+        }
         w = bitmap.width()
         offset = 0
         if (
@@ -877,6 +884,7 @@ export class Font {
    * @param options.direction - Writing direction
    * @param options.usecurrentglyphspacing - Use current glyph spacing
    * @param options.missing - Missing glyph replacement
+   * @param options.bb - Bounding box
    *
    * @returns `Bitmap` object
    *
@@ -886,10 +894,11 @@ export class Font {
     str: string,
     options: {
       linelimit?: number | null
-      mode?: 0 | 1 | null
+      mode?: -1 | 0 | 1 | null
       direction?: DirectionType | null
       usecurrentglyphspacing?: boolean | null
       missing?: Glyph | GlyphMeta | null
+      bb?: [number, number, number, number] | null
     } = {}
   ): Bitmap {
     const {
@@ -898,6 +907,7 @@ export class Font {
       direction,
       usecurrentglyphspacing,
       missing,
+      bb,
     } = options
     return this.drawcps(
       str.split('').map((c) => {
@@ -914,6 +924,7 @@ export class Font {
         direction,
         usecurrentglyphspacing,
         missing,
+        bb,
       }
     )
   }
