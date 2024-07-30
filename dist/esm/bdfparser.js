@@ -680,10 +680,10 @@ export class Font {
                     }
                 }
                 if (_mode === -1) {
-                    bitmap = glyph.draw();
+                    bitmap = glyph.draw(null, _bb);
                 }
                 else {
-                    bitmap = glyph.draw(null, _bb);
+                    bitmap = glyph.draw();
                 }
                 w = bitmap.width();
                 offset = 0;

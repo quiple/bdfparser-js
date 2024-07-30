@@ -807,9 +807,9 @@ export class Font {
           }
         }
         if (_mode === -1) {
-          bitmap = glyph.draw()
-        } else {
           bitmap = glyph.draw(null, _bb)
+        } else {
+          bitmap = glyph.draw()
         }
         w = bitmap.width()
         offset = 0
