@@ -1657,31 +1657,14 @@ export class Bitmap {
   shadow(xoff?: number | null, yoff?: number | null): this {
     const _xoff = xoff ?? 1
     const _yoff = yoff ?? -1
-    let h, resized_xoff, resized_yoff, shadow_xoff, shadow_yoff, w
-    const bitmap_shadow = this.clone()
-    w = this.width()
-    h = this.height()
-    w += Math.abs(_xoff)
-    h += Math.abs(_yoff)
+    const bitmap_shadow = this.clone(),
+      w = this.width(),
+      h = this.height()
     bitmap_shadow.bindata = bitmap_shadow.bindata.map((val) =>
       val.replace(/1/g, '2')
     )
-    if (_xoff > 0) {
-      resized_xoff = 0
-      shadow_xoff = -_xoff
-    } else {
-      resized_xoff = _xoff
-      shadow_xoff = 0
-    }
-    if (_yoff > 0) {
-      resized_yoff = 0
-      shadow_yoff = -_yoff
-    } else {
-      resized_yoff = _yoff
-      shadow_yoff = 0
-    }
-    this.crop(w, h, resized_xoff, resized_yoff)
-    bitmap_shadow.crop(w, h, shadow_xoff, shadow_yoff)
+    this.crop(w, h, 0, 0)
+    bitmap_shadow.crop(w, h, -_xoff, -_yoff)
     bitmap_shadow.overlay(this)
     this.bindata = bitmap_shadow.bindata
     return this
